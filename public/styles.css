@@ -53,3 +53,8 @@ button {
 
 dialog { border: none; border-radius: var(--radi); max-width: 500px; }
 dialog label { display: block; margin-bottom: 0.5rem; }
+
+footer {
+  text-align: center;
+  padding: 1rem;
+}

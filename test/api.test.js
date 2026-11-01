@@ -36,5 +36,6 @@ test('GET / mostra un peu de pàgina amb informació bàsica de la botiga', asyn
   assert.equal(resposta.status, 200);
   const html = await resposta.text();
   assert.match(html, /<footer>/);
-  assert.match(html, /Botiga Copilot · Carrer Major, 123 · \+34 600 000 000/);
+  assert.match(html, /Botiga Copilot · Carrer Major, 123/);
+  assert.match(html, /<a href="mailto:contacte@botigacopilot\.cat">Contacta'ns<\/a>/);
 });
