@@ -30,3 +30,11 @@ test('GET /api/productes/:id retorna 404 si no existeix', async () => {
   const resposta = await fetch(`${base}/api/productes/999`);
   assert.equal(resposta.status, 404);
 });
+
+test('GET / mostra un peu de pàgina amb informació bàsica de la botiga', async () => {
+  const resposta = await fetch(`${base}/`);
+  assert.equal(resposta.status, 200);
+  const html = await resposta.text();
+  assert.match(html, /<footer>/);
+  assert.match(html, /Botiga Copilot · Carrer Major, 123 · \+34 600 000 000/);
+});
