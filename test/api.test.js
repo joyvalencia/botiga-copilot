@@ -20,6 +20,38 @@ test('GET /api/productes retorna tots els productes', async () => {
   assert.equal(productes.length, 6);
 });
 
+test('POST /api/carret/total retorna subtotal, enviament i total', async () => {
+  const resposta = await fetch(`${base}/api/carret/total`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ items: [{ preu: 20, quantitat: 1 }] }),
+  });
+
+  assert.equal(resposta.status, 200);
+  assert.deepEqual(await resposta.json(), {
+    subtotal: 20,
+    enviament: 3.9,
+    total: 23.9,
+  });
+});
+
+test('POST /api/carret/total aplica enviament gratuït després del descompte', async () => {
+  const resposta = await fetch(`${base}/api/carret/total`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      items: [{ preu: 60, quantitat: 1 }],
+      descompte: 10,
+    }),
+  });
+
+  assert.deepEqual(await resposta.json(), {
+    subtotal: 54,
+    enviament: 0,
+    total: 54,
+  });
+});
+
 test('GET /api/categories retorna les categories amb el nombre de productes', async () => {
   const resposta = await fetch(`${base}/api/categories`);
   assert.equal(resposta.status, 200);

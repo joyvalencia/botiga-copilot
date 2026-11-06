@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { calcularTotal } from '../utils/carret.js';
+import { calcularResumCarret } from '../utils/carret.js';
 
 export function routerCarret() {
   const router = Router();
@@ -8,7 +8,7 @@ export function routerCarret() {
   router.post('/total', (req, res) => {
     const { items = [], descompte = 0 } = req.body;
     try {
-      res.json({ total: calcularTotal(items, descompte) });
+      res.json(calcularResumCarret(items, descompte));
     } catch (error) {
       res.status(400).json({ error: error.message });
     }
