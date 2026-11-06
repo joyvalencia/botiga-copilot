@@ -20,6 +20,27 @@ test('GET /api/productes retorna tots els productes', async () => {
   assert.equal(productes.length, 6);
 });
 
+test('GET /api/categories retorna les categories amb el nombre de productes', async () => {
+  const resposta = await fetch(`${base}/api/categories`);
+  assert.equal(resposta.status, 200);
+  const categories = await resposta.json();
+
+  assert.deepEqual(categories, [
+    { categoria: 'casa', numProductes: 2 },
+    { categoria: 'papereria', numProductes: 2 },
+    { categoria: 'roba', numProductes: 2 },
+  ]);
+});
+
+test('GET /api/categories retorna una categoria sense duplicats', async () => {
+  const resposta = await fetch(`${base}/api/categories`);
+  const categories = await resposta.json();
+  const nomsCategories = categories.map((categoria) => categoria.categoria);
+
+  assert.equal(new Set(nomsCategories).size, categories.length);
+  assert.ok(categories.every((categoria) => categoria.numProductes > 0));
+});
+
 test('GET /api/productes calcula la mitjana i el nombre de ressenyes', async () => {
   const resposta = await fetch(`${base}/api/productes`);
   const productes = await resposta.json();
