@@ -1,5 +1,10 @@
 import { Router } from 'express';
 
+/**
+ * Crea el router dels endpoints de productes.
+ * @param {import('node:sqlite').DatabaseSync} db Connexió a la base de dades.
+ * @returns {import('express').Router} Router amb les rutes de productes.
+ */
 export function routerProductes(db) {
   const router = Router();
 

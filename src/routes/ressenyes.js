@@ -1,5 +1,10 @@
 import { Router } from 'express';
 
+/**
+ * Crea el router dels endpoints de ressenyes.
+ * @param {import('node:sqlite').DatabaseSync} db Connexió a la base de dades.
+ * @returns {import('express').Router} Router amb les rutes de ressenyes.
+ */
 export function routerRessenyes(db) {
   const router = Router();
 

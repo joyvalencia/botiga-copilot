@@ -21,6 +21,28 @@ Obre <http://localhost:3000> al navegador.
 npm test
 ```
 
+L'ordre executa tots els tests amb el runner integrat de Node.js.
+
+## API
+
+### Productes
+
+- `GET /api/productes`: retorna tots els productes amb la puntuació mitjana i el nombre de ressenyes. Accepta el paràmetre opcional `categoria` per filtrar-los, per exemple `GET /api/productes?categoria=roba`.
+- `GET /api/productes/:id`: retorna un producte pel seu identificador o un error 404 si no existeix.
+
+### Categories
+
+- `GET /api/categories`: retorna les categories existents i el nombre de productes de cadascuna.
+
+### Ressenyes
+
+- `GET /api/ressenyes?producteId=1`: retorna les ressenyes del producte indicat, ordenades de més nova a més antiga.
+- `POST /api/ressenyes`: crea una ressenya amb les dades del producte, l'autor, el text i la puntuació, i retorna l'identificador creat.
+
+### Carret
+
+- `POST /api/carret/total`: calcula el subtotal després del descompte, el cost d'enviament segons el pes i el total final. Rep `items` i `descompte` al cos de la petició.
+
 ## Estructura
 
 ```

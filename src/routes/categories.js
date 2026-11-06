@@ -1,5 +1,10 @@
 import { Router } from 'express';
 
+/**
+ * Crea el router de l'endpoint de categories.
+ * @param {import('node:sqlite').DatabaseSync} db Connexió a la base de dades.
+ * @returns {import('express').Router} Router amb la ruta de categories.
+ */
 export function routerCategories(db) {
   const router = Router();
 
