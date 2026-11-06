@@ -6,11 +6,16 @@ async function carregarProductes(categoria = '') {
   const contenidor = document.querySelector('#productes');
   contenidor.innerHTML = '';
   for (const p of productes) {
+    const puntuacio =
+      p.numRessenyes === 0
+        ? 'Sense ressenyes'
+        : `${p.mitjana.toFixed(1).replace('.', ',')} (${p.numRessenyes} ressenyes)`;
     const targeta = document.createElement('article');
     targeta.className = 'producte';
     targeta.innerHTML = `
       <h3>${p.nom}</h3>
       <p>${p.preu.toFixed(2)} €</p>
+      <p>${puntuacio}</p>
       <button class="afegeix">Afegeix</button>
       <button class="veure">Ressenyes</button>
     `;

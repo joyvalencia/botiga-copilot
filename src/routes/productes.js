@@ -6,11 +6,23 @@ export function routerProductes(db) {
   // GET /api/productes?categoria=roba
   router.get('/', (req, res) => {
     const { categoria } = req.query;
-    let sql = 'SELECT * FROM productes';
+    let sql = `
+      SELECT productes.*,
+             ROUND(AVG(ressenyes.puntuacio), 1) AS mitjana,
+             COUNT(ressenyes.id) AS numRessenyes
+      FROM productes
+      LEFT JOIN ressenyes ON ressenyes.producte_id = productes.id
+    `;
+    const parametres = [];
+
     if (categoria) {
-      sql += ` WHERE categoria = '${categoria}'`;
+      sql += ' WHERE productes.categoria = ?';
+      parametres.push(categoria);
     }
-    const productes = db.prepare(sql).all();
+
+    sql += ' GROUP BY productes.id';
+
+    const productes = db.prepare(sql).all(...parametres);
     res.json(productes);
   });
 
